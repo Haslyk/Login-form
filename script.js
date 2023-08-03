@@ -1,20 +1,56 @@
 var bg = document.getElementById('bg')
-var active = document.getElementById('active-form')
+
+const switchPage = document.querySelector('.switch')
+
+const regImg = document.getElementById('registerImg')
+const logImg = document.getElementById('loginImg')
+
+const inputs = document.querySelectorAll('input')
 
 const changeRegister = () => {
-    active.classList.remove('login-page')
-    active.classList.add('register-page')
+    switchPage.classList.remove('login')
+    switchPage.classList.add('register')
+
+    logImg.classList.remove('active')
+    regImg.classList.add('active')
 
     bg.classList.remove('login-bg')
     bg.classList.add('register-bg')
-    bg.innerHTML = "<img src='./img/register.png'></img>"
 }
 
 const changeLogin = () => {
-    active.classList.remove('register-page')
-    active.classList.add('login-page')
     
+    switchPage.classList.remove('register')
+    switchPage.classList.add('login')
+    
+    regImg.classList.remove('active')
+    logImg.classList.add('active')
+
     bg.classList.remove('register-bg')
     bg.classList.add('login-bg')
-    bg.innerHTML = "<img src='./img/login.png'></img>"
 }
+
+inputs.forEach(input => {
+
+    const label = document.querySelector(`label[for="${input.id}"]`)
+
+    input.addEventListener('focus', () => {
+
+        input.style.border = "2px solid #ffc148"
+        input.style.borderRadius ="10px"
+        
+        label.style.transform =  "translate(25% , -60%)"
+    })
+
+    input.addEventListener('blur', () => {
+
+        if(input.value) {
+            label.style.transform = "translate(25%, -60%)";
+        }
+        else {
+            label.style.transform = "translateY(0)";
+            input.style.border = "none"
+            input.style.borderBottom = "2px solid #ffc148"
+        }
+    })
+})
